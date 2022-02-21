@@ -1,5 +1,3 @@
-Excel üzerinden Veri Al ile SQL Server Veritabanından veri çekerken aşağıda ki uyarı alındığı zaman,
-
 Microsoft SQL: The server principal "loginuser" is not able to access the database "userDB" under the current security context.
 Cannot open database "userDB" requested by the login. The login failed.
 Login failed for user 'loginuser'.
