@@ -1,5 +1,3 @@
-
---The number of queries with the longest average execution time within last hour:
 --Son bir saat içinde ortalama olarak en uzun çalışan sorgular
 SELECT TOP 10 rs.avg_duration, qt.query_sql_text, q.query_id,
     qt.query_text_id, p.plan_id, GETUTCDATE() AS CurrentUTCTime,
@@ -14,8 +12,6 @@ JOIN sys.query_store_runtime_stats AS rs
 WHERE rs.last_execution_time > DATEADD(hour, -1, GETUTCDATE())
 ORDER BY rs.avg_duration DESC;
 
---The number of queries that had the biggest average physical I/O reads in last 24 hours, with corresponding average row count 
---and execution count:
 --Son 24 saatte en yüksek fiziksel(Physical) I/O kullanan sorgular
 SELECT TOP 10 rs.avg_physical_io_reads, qt.query_sql_text,
     q.query_id, qt.query_text_id, p.plan_id, rs.runtime_stats_id,
@@ -32,7 +28,6 @@ JOIN sys.query_store_runtime_stats_interval AS rsi
 WHERE rsi.start_time >= DATEADD(hour, -24, GETUTCDATE())
 ORDER BY rs.avg_physical_io_reads DESC;
 
---The number of queries that had the biggest average logical I/O reads in last 24 hours, with corresponding average row count and execution count:
 --Son 24 saatte en yüksek mantıksal(Logical) I/O kullanan sorgular
 SELECT TOP 50 rs.avg_logical_io_reads, qt.query_sql_text,
     q.query_id, qt.query_text_id, p.plan_id, rs.runtime_stats_id,
@@ -49,8 +44,6 @@ JOIN sys.query_store_runtime_stats_interval AS rsi
 WHERE rsi.start_time >= DATEADD(hour, -24, GETUTCDATE())
 ORDER BY rs.avg_logical_io_reads DESC;
 
-
---The last n queries executed on the database:
 --Son çalıştırılan sorgular
 SELECT TOP 10 qt.query_sql_text, q.query_id,
     qt.query_text_id, p.plan_id, rs.last_execution_time
@@ -63,7 +56,6 @@ JOIN sys.query_store_runtime_stats AS rs
     ON p.plan_id = rs.plan_id
 ORDER BY rs.last_execution_time DESC;
 
---Number of executions for each query:
 --Sorguların çalışma sayısı
 SELECT q.query_id, qt.query_text_id, qt.query_sql_text,
     SUM(rs.count_executions) AS total_execution_count
@@ -77,8 +69,6 @@ JOIN sys.query_store_runtime_stats AS rs
 GROUP BY q.query_id, qt.query_text_id, qt.query_sql_text
 ORDER BY total_execution_count DESC;
 
---The following query example returns all queries for which execution time doubled in last 48 hours due to a plan choice change. 
---This query compares all runtime stat intervals side by side:
 --Son 48 saat içinde Execution Time iki katına çıkmış sorguları getirir. 
 SELECT
     qt.query_sql_text,
@@ -113,8 +103,6 @@ WHERE rsi1.start_time > DATEADD(hour, -48, GETUTCDATE())
     AND rs2.avg_duration > 2*rs1.avg_duration
 ORDER BY q.query_id, rsi1.start_time, rsi2.start_time;
 
---These queries are especially interesting because they are candidates for regressions due to plan choice change. 
---The following query identifies these queries along with all plans:
 --Query Store ile biriktirilen sorguları göstermektedir.
 WITH Query_MultPlans
 AS
