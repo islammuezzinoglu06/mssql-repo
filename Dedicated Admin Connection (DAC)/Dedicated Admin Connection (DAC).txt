@@ -1,0 +1,17 @@
+Dedicated Admin Connection (DAC)
+Database'e normal yollar dışında bağlanmayı sağlayan bir bağlantı şekli.
+
+Ne zaman kullanılır:
+-SQL Servisi çalışıyor fakat SQL Server'a normal yollarla ve kullanıcılarla bağlanılamadığı zaman özelliğin açık olması durumunda kullanılabilir.
+-Çok kaynak tüketen sorgular yavaşlığa sebep oluyor ve head blocker var ise bu bağlantı ile kill edilebilir.
+
+Özelliğin durumunu kontrol etme:
+sp_configure 'remote admin connections'
+run_value değeri 1 ise aktif
+
+Özelliği açma:
+sp_configure 'remote admin connections',1
+reconfigure
+
+Kullanım:
+File/New/Database Engine Query içerisinden Server Name: "admin:SERVERNAME" olarak giriş yapılabilir.
