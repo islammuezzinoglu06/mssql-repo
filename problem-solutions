@@ -1,0 +1,2 @@
+MS-SQL Object Explorer/Databases altında database'in "MyDatabase(Restoring...)" Bu şekilde gözükmesi durumunda aşağıda ki kod master ile çalıştırılmalıdır.
+RESTORE DATABASE MyDatabase WITH RECOVERY
