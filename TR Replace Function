@@ -1,0 +1,23 @@
+CREATE FUNCTION DEV_TR_REPLACE ( @str NVARCHAR(50) ) RETURNS NVARCHAR(100)
+AS
+BEGIN
+DECLARE @str_ NVARCHAR(50)
+SET @str_ = @str
+SET @str_ = REPLACE(@str_,'ı' COLLATE Latin1_general_CI_AI,'i')
+SET @str_ = REPLACE(@str_,'ş' COLLATE Latin1_general_CI_AI,'s')
+SET @str_ = REPLACE(@str_,'ç' COLLATE Latin1_general_CI_AI,'c')
+SET @str_ = REPLACE(@str_,'ö' COLLATE Latin1_general_CI_AI,'o')
+SET @str_ = REPLACE(@str_,'ğ' COLLATE Latin1_general_CI_AI,'g')
+SET @str_ = REPLACE(@str_,'ü' COLLATE Latin1_general_CI_AI,'u')
+SET @str_ = REPLACE(@str_,'İ' COLLATE Latin1_general_CI_AI,'I')
+SET @str_ = REPLACE(@str_,'Ş' COLLATE Latin1_general_CI_AI,'S')
+SET @str_ = REPLACE(@str_,'Ç' COLLATE Latin1_general_CI_AI,'C')
+SET @str_ = REPLACE(@str_,'Ö' COLLATE Latin1_general_CI_AI,'O')
+SET @str_ = REPLACE(@str_,'Ğ' COLLATE Latin1_general_CI_AI,'G')
+SET @str_ = REPLACE(@str_,'Ü' COLLATE Latin1_general_CI_AI,'U')
+RETURN (@str_)
+END
+
+SELECT _column,
+dbo.DEV_TR_REPLACE(_column)
+FROM _table
